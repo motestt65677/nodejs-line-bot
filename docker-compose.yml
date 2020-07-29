@@ -1,0 +1,15 @@
+version: '3'
+services:
+  nodejs:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      VIRTUAL_HOST: bot.shineyou.app
+      LETSENCRYPT_HOST: bot.shineyou.app
+      LETSENCRYPT_EMAIL: chengshair@gmail.com
+networks:
+  default:
+    external:
+      name: nginx-proxy
+
