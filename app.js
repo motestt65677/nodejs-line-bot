@@ -38,41 +38,58 @@ app.listen(8080);
 
 // echo user message
 bot.on('message', function (event) {
-    var input = event.message.text;
+    var rawInput = event.message.text;
     console.log(input);
-    axios.get('http://api.giphy.com/v1/gifs/search?api_key=EH2saWyOaOtrBwqyUWii2wPwv0sOLhN7&q='+input)
-    .then(response => {
-        var total = response.data["data"].length;
-        var num = Math.floor(Math.random() * Math.floor(total));
-        // console.log(num);
-        var imageUrl = response.data["data"][num]["images"]["original"]["url"];
-        // console.log(response.data);
-        // console.log(response.data.explanation);
+    if(rawInput.toLowerCase() == "info"){
         var replyMsg = {
-            "type": "template",
-            "altText": "GIF",
-            "template": {
-                "type": "image_carousel",
-                "columns": [
-                    {
-                        "imageUrl": imageUrl,
-                        "action": {
-                        "type": "uri",
-                        "label": "link",
-                        "uri": imageUrl
-                        }
-                    }
-                ]
-            }
+            "type": "text",
+            "text": `輸入 # + 想要查詢的英文關鍵字 (ex. #dance, #friends) 會得到一張隨機的GIF`
         };
-        event.reply(replyMsg).then(function (data) {
-            console.log('ok')
-        }).catch(function (error) {
-            console.error(error)
-        });
+        event.reply(replyMsg);
+        return;
+    }
 
-    })
-    .catch(error => {
-        console.log(error);
-    });
+
+    if(rawInput.startsWith("#")){
+        var input = rawInput.substr(1);
+        axios.get('http://api.giphy.com/v1/gifs/search?api_key=EH2saWyOaOtrBwqyUWii2wPwv0sOLhN7&q='+input)
+        .then(response => {
+            var total = response.data["data"].length;
+            var num = Math.floor(Math.random() * Math.floor(total));
+            // console.log(num);
+    
+            var imageUrl = response.data["data"][num]["images"]["original"]["url"];
+            // console.log(response.data);
+            // console.log(response.data.explanation);
+
+            var replyMsg = {
+                "type": "template",
+                "altText": "GIF",
+                "template": {
+                    "type": "image_carousel",
+                    "columns": [
+                        {
+                            "imageUrl": imageUrl,
+                            "action": {
+                            "type": "uri",
+                            "label": "link",
+                            "uri": imageUrl
+                            }
+                        }
+                    ]
+                }
+            };
+            event.reply(replyMsg).then(function (data) {
+                console.log('ok')
+            }).catch(function (error) {
+                console.error(error)
+            });
+    
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+        
+    
 });
