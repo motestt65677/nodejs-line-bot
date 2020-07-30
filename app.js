@@ -40,6 +40,8 @@ app.listen(8080);
 bot.on('message', function (event) {
     var rawInput = event.message.text;
     console.log(input);
+    if(typeof rawInput === 'undefined')
+        return;
     if(rawInput.toLowerCase() == "info"){
         var replyMsg = {
             "type": "text",
@@ -71,14 +73,15 @@ bot.on('message', function (event) {
                         {
                             "imageUrl": imageUrl,
                             "action": {
-                            "type": "uri",
-                            "label": "link",
-                            "uri": imageUrl
+                                "type": "uri",
+                                "label": "link",
+                                "uri": imageUrl
                             }
                         }
-                    ]
+                    ],
                 }
-            };
+            };         
+            
             event.reply(replyMsg).then(function (data) {
                 console.log('ok')
             }).catch(function (error) {
