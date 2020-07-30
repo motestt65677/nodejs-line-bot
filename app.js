@@ -39,9 +39,11 @@ app.listen(8080);
 // echo user message
 bot.on('message', function (event) {
     var rawInput = event.message.text;
-    console.log(input);
-    if(typeof rawInput === 'undefined')
+    
+    //line sticker
+    if(typeof rawInput === 'undefined' || rawInput == undefined)
         return;
+    
     if(rawInput.toLowerCase() == "info"){
         var replyMsg = {
             "type": "text",
@@ -54,6 +56,14 @@ bot.on('message', function (event) {
 
     if(rawInput.startsWith("#")){
         var input = rawInput.substr(1);
+
+        //english only
+        var english = /^[A-Za-z0-9]*$/;
+        if (!english.test(input)){
+            console.log("not english");
+            return;
+        }
+        
         axios.get('http://api.giphy.com/v1/gifs/search?api_key=EH2saWyOaOtrBwqyUWii2wPwv0sOLhN7&q='+input)
         .then(response => {
             var total = response.data["data"].length;
