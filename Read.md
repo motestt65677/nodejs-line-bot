@@ -1,7 +1,10 @@
 # nodejs-line-bot 
 ##testing environment
-- Use Ngrok and run node app.js
-- Set webhook, make sure the route is correct. (ex. https://dc7112cf3391.ngrok.io/linewebhook)
+- Create .env file
+- Install node js. (see https://nodejs.org/en/download/)
+- Use Ngrok to get a https url. 
+- Set webhook on https://developers.line.biz/, make sure the route is https. (ex. https://dc7112cf3391.ngrok.io/linewebhook)
+- run ```node app.js```
 ##.env file
 LINE_CHANNEL_ID=""
 LIEN_CHANNEL_SECRET=""
