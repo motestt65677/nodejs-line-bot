@@ -39,7 +39,6 @@ app.listen(8080);
 // echo user message
 bot.on('message', function (event) {
     var rawInput = event.message.text;
-    
     //line sticker
     if(typeof rawInput === 'undefined' || rawInput == undefined)
         return;
@@ -57,6 +56,7 @@ bot.on('message', function (event) {
     if(rawInput.startsWith("#")){
         var input = rawInput.substr(1);
 
+        input = input.toString().trim();
         //english only
         var english = /^[A-Za-z0-9]*$/;
         if (!english.test(input)){
@@ -67,6 +67,11 @@ bot.on('message', function (event) {
         axios.get('http://api.giphy.com/v1/gifs/search?api_key=EH2saWyOaOtrBwqyUWii2wPwv0sOLhN7&q='+input)
         .then(response => {
             var total = response.data["data"].length;
+            if(total < 1){
+                console.log("no image found");
+                return;
+            }
+
             var num = Math.floor(Math.random() * Math.floor(total));
             // console.log(num);
     
@@ -93,7 +98,7 @@ bot.on('message', function (event) {
             };         
             
             event.reply(replyMsg).then(function (data) {
-                console.log('ok')
+                // console.log('ok')
             }).catch(function (error) {
                 console.error(error)
             });
