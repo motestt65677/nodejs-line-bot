@@ -1,5 +1,5 @@
-# nodejs-line-bot 
-##Steps for setting up testing envornment
+# nodejs-line-bot-gif
+##setting up testing envornment
 - Create .env file
 - Install node js. (see https://nodejs.org/en/download/)
 - Use Ngrok to get a https url. 
