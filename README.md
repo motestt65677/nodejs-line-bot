@@ -1,11 +1,11 @@
 # nodejs-line-bot-gif
-##setting up testing envornment
+## setting up testing envornment
 - Create .env file
 - Install node js. (see https://nodejs.org/en/download/)
 - Use Ngrok to get a https url. 
 - Set webhook on https://developers.line.biz/, make sure the route is https. (ex. https://dc7112cf3391.ngrok.io/linewebhook)
 - run ```node app.js```
-##.env file
+## .env file
 ```
 LINE_CHANNEL_ID=""
 LIEN_CHANNEL_SECRET=""
@@ -13,7 +13,7 @@ LINE_CHANNEL_ACCESS_TOKEN=""
 ```
 
 - This file holds the environmental variables related to your line bot account.
-##docker-compose.yml file
+## docker-compose.yml file
 ```
 version: '3'
 services:
